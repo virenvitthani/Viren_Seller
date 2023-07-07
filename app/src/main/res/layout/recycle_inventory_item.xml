@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="190dp"
+    android:background="#827717"
+    android:padding="10dp">
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+
+       <TextView
+           android:id="@+id/inven_recyc_title"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:text="Item Name"
+           android:textColor="@color/black"
+           android:textSize="25dp"
+           android:textStyle="bold"/>
+
+   </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/inven_recyc_img"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:src="@mipmap/ic_launcher"
+                android:layout_margin="10dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/inven_recyc_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Price : "
+                android:textColor="@color/black"
+                android:textSize="25dp"/>
+
+            <TextView
+                android:id="@+id/inven_recyc_Color"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Color : "
+                android:textColor="@color/black"
+                android:textSize="25dp"/>
+
+            <TextView
+                android:id="@+id/inven_recyc_quantity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Quantity : "
+                android:textColor="@color/black"
+                android:textSize="25dp"/>
+
+            <TextView
+                android:id="@+id/inven_recyc_Category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Category : "
+                android:textColor="@color/black"
+                android:textSize="25dp"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2.4"
+            android:gravity="end">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/baseline_more_vert_24"
+                android:scaleX="2"
+                android:scaleY="2"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
