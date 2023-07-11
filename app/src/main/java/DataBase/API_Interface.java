@@ -1,6 +1,7 @@
 package DataBase;
 
 
+import android.text.Editable;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -17,6 +18,6 @@ public interface API_Interface {
     Call<LoginData> loginuser(@Field("email") String email,@Field("password") String password);
 
     @FormUrlEncoded
-    @POST("addProduct")
-    Call<AddproductData> addproductData(@Field("userid") int userid, @Field("pname") String pname,@Field("pprize") int pprize,@Field("pdes") String pdes);
+    @POST("addProduct.php")
+    Call<AddproductData> addproduct(@Field("userid") int userid, @Field("pname") String pname, @Field("pprize") Editable pprize, @Field("pdes") String pdes, @Field("images") String images);
 }
