@@ -40,4 +40,12 @@ public class LoginData {
         this.userdata = userdata;
     }
 
+    @Override
+    public String toString() {
+        return "LoginData{" +
+                "connection=" + connection +
+                ", result=" + result +
+                ", userdata=" + userdata +
+                '}';
+    }
 }
