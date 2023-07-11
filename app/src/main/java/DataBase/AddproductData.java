@@ -28,4 +28,11 @@ public void setProductaddd(Integer productaddd) {
 this.productaddd = productaddd;
 }
 
+    @Override
+    public String toString() {
+        return "AddproductData{" +
+                "connection=" + connection +
+                ", productaddd=" + productaddd +
+                '}';
+    }
 }

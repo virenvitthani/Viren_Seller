@@ -15,4 +15,8 @@ public interface API_Interface {
     @FormUrlEncoded
     @POST("login.php")
     Call<LoginData> loginuser(@Field("email") String email,@Field("password") String password);
+
+    @FormUrlEncoded
+    @POST("addProduct")
+    Call<AddproductData> addproductData(@Field("userid") int userid, @Field("pname") String pname,@Field("pprize") int pprize,@Field("pdes") String pdes);
 }
