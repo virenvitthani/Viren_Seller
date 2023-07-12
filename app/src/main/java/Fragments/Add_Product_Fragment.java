@@ -3,14 +3,12 @@ package Fragments;
 import static android.app.Activity.RESULT_OK;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,7 +78,7 @@ public class Add_Product_Fragment extends Fragment
                 addfragment(new Home_Fragment());
 
                 if(Splash_Images.preferences.getString("from",null).equals("add")) {
-                    InstanceClass.CallApi().addproduct(Splash_Images.preferences.getInt("userid", 0), pdname.getText().toString(), pdprice.getText(), pddescription.getText().toString(), imagedata).enqueue(new Callback<AddproductData>() {
+                    InstanceClass.CallApi().addproduct(Splash_Images.preferences.getInt("sellerid", 0), pdname.getText().toString(), pdprice.getText(), pddescription.getText().toString(), imagedata).enqueue(new Callback<AddproductData>() {
                         @Override
                         public void onResponse(Call<AddproductData> call, Response<AddproductData> response) {
                             if (response.body().getConnection() == 1) {
@@ -118,7 +116,6 @@ public class Add_Product_Fragment extends Fragment
         CropImage.activity()
                 .start(getContext(),this);
     }
-
 
 
     @Override

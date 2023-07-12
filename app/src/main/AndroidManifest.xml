@@ -31,9 +31,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Add_Product"
-            android:exported="false" />
-        <activity
             android:name=".RegisterPage"
             android:exported="false">
             <meta-data
