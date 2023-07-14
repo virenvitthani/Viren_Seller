@@ -23,7 +23,7 @@ public class ViewproAdapter extends RecyclerView.Adapter<ViewproAdapter.proHolde
     Inventory_Fragment inventory_fragment;
     List<Productdatum> productdata;
 
-    public ViewproAdapter(Inventory_Fragment inventory_fragment) {
+    public ViewproAdapter(Inventory_Fragment inventory_fragment, List<Productdatum> productdata) {
         this.inventory_fragment = inventory_fragment;
         this.productdata = productdata;
     }

@@ -9,13 +9,13 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -83,12 +83,15 @@ public class Add_Product_Fragment extends Fragment
                         public void onResponse(Call<AddproductData> call, Response<AddproductData> response) {
                             if (response.body().getConnection() == 1) {
                                 if (response.body().getProductaddd() == 1) {
-                                    Toast.makeText(getContext(), "Product Add Sucessfully", Toast.LENGTH_LONG).show();
+                                    Log.d("TTT", "onResponse: connection"+response.body().getConnection());
+//                                    Toast.makeText(getContext(), "Product Add Sucessfully", Toast.LENGTH_LONG).show();
                                 } else {
-                                    Toast.makeText(getContext(), "Failed to Add Product", Toast.LENGTH_LONG).show();
+                                    Log.d("TTT", "onResponse: fail connection"+response.body().getConnection());
+//                                    Toast.makeText(getContext(), "Failed to Add Product", Toast.LENGTH_LONG).show();
                                 }
                             } else {
-                                Toast.makeText(getContext(), "Check Internet Connection", Toast.LENGTH_LONG).show();
+                                Log.d("TTT", "onResponse: somthing went wrong getconnection"+response.body().getConnection());
+//                                Toast.makeText(getContext(), "Check Internet Connection", Toast.LENGTH_LONG).show();
                             }
                         }
 
