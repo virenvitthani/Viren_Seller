@@ -1,6 +1,9 @@
 package com.example.new_viren_seller;
 
+import static com.example.new_viren_seller.Splash_Images.editor;
+
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,7 +26,7 @@ import java.util.List;
 import DataBase.InstanceClass;
 import DataBase.Productdatum;
 import DataBase.Register_Data;
-import Fragments.Add_Product_Fragment;
+import DataBase.TransferDataFragment;
 import Fragments.Inventory_Fragment;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,10 +36,12 @@ public class ViewproAdapter extends RecyclerView.Adapter<ViewproAdapter.proHolde
 
     Inventory_Fragment inventory_fragment;
     List<Productdatum> productdata;
+    TransferDataFragment transferDataFragment;
 
-    public ViewproAdapter(Inventory_Fragment inventory_fragment, List<Productdatum> productdata) {
+    public ViewproAdapter(Inventory_Fragment inventory_fragment, List<Productdatum> productdata,TransferDataFragment transferDataFragment) {
         this.inventory_fragment = inventory_fragment;
         this.productdata = productdata;
+        this.transferDataFragment = transferDataFragment;
     }
 
     @NonNull
@@ -55,6 +60,14 @@ public class ViewproAdapter extends RecyclerView.Adapter<ViewproAdapter.proHolde
 
         Glide.with(inventory_fragment).load("https://mihirecommarce.000webhostapp.com/Mysite/"+productdata.get(position).getImages()).into(holder.imageView);
 
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Intent intent = new Intent(inventory_fragment.getContext(),PaymentActivity.class);
+                inventory_fragment.getContext().startActivity(intent);
+                return true;
+            }
+        });
 
         holder.menuoption.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,9 +80,16 @@ public class ViewproAdapter extends RecyclerView.Adapter<ViewproAdapter.proHolde
                     public boolean onMenuItemClick(MenuItem item) {
                         if (item.getItemId()==R.id.update)
                         {
-                            addfragment(new Add_Product_Fragment());
+                            editor.putString("from","update");
+                            editor.commit();
 
-
+                            transferDataFragment.getDataFromFragment(
+                                    Integer.parseInt(productdata.get(position).getId()),
+                                    productdata.get(position).getPdname(),
+                                    productdata.get(position).getPdprice(),
+                                    productdata.get(position).getDescription(),
+                                    productdata.get(position).getImages()
+                            );
                         }
                         if (item.getItemId()==R.id.delete)
                         {

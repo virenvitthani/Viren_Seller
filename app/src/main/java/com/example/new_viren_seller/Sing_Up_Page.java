@@ -31,12 +31,12 @@ public class Sing_Up_Page extends AppCompatActivity {
                     public void onResponse(Call<LoginData> call, Response<LoginData> response) {
                         if(response.body().getConnection()==1){
                             if(response.body().getResult()==1){
-                                editor.putInt("login",1);
-                                editor.putInt("sellerid", Integer.parseInt(response.body().getUserdata().getId()));
-                                editor.putString("sellername",response.body().getUserdata().getName());
-                                editor.putString("selleremail",response.body().getUserdata().getEmail());
-                                editor.commit();
                                 Intent intent = new Intent(Sing_Up_Page.this,Main_Page.class);
+                                editor.putInt("login",1);
+//                                editor.putInt("sellerid", Integer.parseInt(response.body().getUserdata().getId()));
+//                                editor.putString("sellername",response.body().getUserdata().getName());
+//                                editor.putString("selleremail",response.body().getUserdata().getEmail());
+                                editor.commit();
                                 startActivity(intent);
                             }
                             else{

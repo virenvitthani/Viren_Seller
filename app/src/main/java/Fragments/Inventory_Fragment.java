@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,6 +19,7 @@ import com.example.new_viren_seller.Splash_Images;
 import com.example.new_viren_seller.ViewproAdapter;
 
 import DataBase.InstanceClass;
+import DataBase.TransferDataFragment;
 import DataBase.ViewproductData;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -37,7 +40,24 @@ public class Inventory_Fragment extends Fragment {
             public void onResponse(Call<ViewproductData> call, Response<ViewproductData> response) {
                 if (response.body().getConnection() == 1) {
                     if (response.body().getResult() == 1) {
-                        adapter=new ViewproAdapter(Inventory_Fragment.this,response.body().getProductdata());
+                        adapter=new ViewproAdapter(Inventory_Fragment.this, response.body().getProductdata(), new TransferDataFragment() {
+                            @Override
+                            public void getDataFromFragment(int id, String name, String price, String description, String imgeData) {
+                                Add_Product_Fragment add_product_fragment=new Add_Product_Fragment();
+                                Bundle args = new Bundle();
+                                args.putString("id", String.valueOf(id));
+                                args.putString("name", name);
+                                args.putString("price", price);
+                                args.putString("descripation",description);
+                                args.putString("img",imgeData);
+                                add_product_fragment.setArguments(args);
+
+                                FragmentManager fm = getActivity().getSupportFragmentManager();
+                                FragmentTransaction transaction = fm.beginTransaction();
+                                transaction.replace(R.id.framlayout, add_product_fragment);
+                                transaction.commit();
+                            }
+                        });
                         recyclerView=view.findViewById(R.id.recycleview);
                         LinearLayoutManager manager = new LinearLayoutManager(getContext());
                         manager.setOrientation(RecyclerView.VERTICAL);
