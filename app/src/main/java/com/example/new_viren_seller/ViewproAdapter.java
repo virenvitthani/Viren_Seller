@@ -1,6 +1,8 @@
 package com.example.new_viren_seller;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -9,14 +11,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
 import java.util.List;
 
+import DataBase.InstanceClass;
 import DataBase.Productdatum;
+import DataBase.Register_Data;
+import Fragments.Add_Product_Fragment;
 import Fragments.Inventory_Fragment;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ViewproAdapter extends RecyclerView.Adapter<ViewproAdapter.proHolder> {
 
@@ -37,12 +48,13 @@ public class ViewproAdapter extends RecyclerView.Adapter<ViewproAdapter.proHolde
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewproAdapter.proHolder holder, int position) {
-        holder.pdname.setText("\t"+productdata.get(position).getPdname());
-        holder.pdprice.setText("pdprice"+productdata.get(position).getPdprice());
-        holder.pddescription.setText("pddescription"+productdata.get(position).getDescription());
+    public void onBindViewHolder(@NonNull ViewproAdapter.proHolder holder, @SuppressLint("RecyclerView") int position) {
+        holder.pdname.setText("Name :"+productdata.get(position).getPdname());
+        holder.pdprice.setText("Price :"+productdata.get(position).getPdprice());
+        holder.pddescription.setText("Des : "+productdata.get(position).getDescription());
 
-        Glide.with(inventory_fragment).load("https://mihirecommarce.000webhostapp.com/Mysite"+productdata.get(position).getImages()).into(holder.imageView);
+        Glide.with(inventory_fragment).load("https://mihirecommarce.000webhostapp.com/Mysite/"+productdata.get(position).getImages()).into(holder.imageView);
+
 
         holder.menuoption.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,9 +62,52 @@ public class ViewproAdapter extends RecyclerView.Adapter<ViewproAdapter.proHolde
                 Toast.makeText(v.getContext(),"Popup",Toast.LENGTH_LONG).show();
                 PopupMenu popupMenu = new PopupMenu(inventory_fragment.getContext(),v);
                 popupMenu.getMenuInflater().inflate(R.menu.popup_menu,popupMenu.getMenu());
-                popupMenu.show();
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        if (item.getItemId()==R.id.update)
+                        {
+                            addfragment(new Add_Product_Fragment());
+
+
+                        }
+                        if (item.getItemId()==R.id.delete)
+                        {
+                            InstanceClass.CallApi().deleteproduct(Integer.parseInt(productdata.get(position).getId())).enqueue(new Callback<Register_Data>() {
+                                @Override
+                                public void onResponse(Call<Register_Data> call, Response<Register_Data> response) {
+                                    if (response.body().getConnection()==1) {
+                                        if (response.body().getResult()==1) {
+                                            Toast.makeText(inventory_fragment.getContext(),"Product Delete",Toast.LENGTH_LONG).show();
+                                            productdata.remove(position);
+                                            notifyDataSetChanged();
+                                        }
+                                        else
+                                        {
+                                            Toast.makeText(inventory_fragment.getContext(),"Delete Fail",Toast.LENGTH_LONG).show();
+                                        }
+                                    }
+                                }
+                                @Override
+                                public void onFailure(Call<Register_Data> call, Throwable t) {
+
+                                }
+                            });
+                        }
+                        return true;
+                    }
+                });popupMenu.show();
+
             }
         });
+    }
+
+    private void addfragment(Fragment fragment)
+    {
+        FragmentManager fm = inventory_fragment.getParentFragmentManager();
+        FragmentTransaction transaction = fm.beginTransaction();
+        transaction.replace(R.id.framlayout,fragment);
+        transaction.commit();
     }
 
     @Override

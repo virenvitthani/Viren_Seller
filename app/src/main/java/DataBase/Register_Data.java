@@ -5,11 +5,8 @@ import com.google.gson.annotations.SerializedName;
 
 public class Register_Data {
 
-    @SerializedName("connection")
-    @Expose
     private Integer connection;
-    @SerializedName("result")
-    @Expose
+
     private Integer result;
 
     public Integer getConnection() {

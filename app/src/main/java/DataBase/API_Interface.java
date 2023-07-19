@@ -25,4 +25,12 @@ public interface API_Interface {
     @POST("viewProduct.php")
     Call<ViewproductData> viewProduct(@Field("userid") int sellerid);
 
+    @FormUrlEncoded
+    @POST("updateproduct.php")
+    Call<Register_Data> updateproduct(@Field("pname") String name, @Field("pprice") String price, @Field("pdes") String pdes,  @Field("id") String id);
+
+    @FormUrlEncoded
+    @POST("deleteproduct.php")
+    Call<Register_Data> deleteproduct(@Field("id") int id);
+
 }

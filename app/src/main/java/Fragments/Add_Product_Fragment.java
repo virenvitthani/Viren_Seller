@@ -101,6 +101,7 @@ public class Add_Product_Fragment extends Fragment
                         }
                     });
                 }
+
             }
         });
         return view;
